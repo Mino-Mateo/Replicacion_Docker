@@ -33,4 +33,4 @@ services:
       - "8080:80"
     environment:
       PMA_HOSTS: "mysql_maestro, mysql_esclavo"
-      PMA_ARBITRARY: 1,2
+      PMA_ARBITRARY: 1
