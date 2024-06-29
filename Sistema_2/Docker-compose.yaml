@@ -1,0 +1,36 @@
+# Version 
+version: '3'
+
+# Contenedores
+services:
+  # SQL Maestro
+  mysql_maestro_a:
+    image: mysql:5.7
+    container_name: maestro_a
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sistema2
+    ports:
+      - "3310:3306"
+    command: --server-id=1 --log-bin=mysql --binlog-do-db=sistema2
+
+  # SQL Esclavo
+  mysql_maestro_b:
+    image: mysql:5.7
+    container_name: maestro_b
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sistema2
+    ports:
+      - "3311:3306"
+    command: --server-id=2 --log-bin=mysql --binlog-do-db=sistema2
+
+  # Servidor PHP
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: php2
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOSTS: "mysql_maestro, mysql_esclavo"
+      PMA_ARBITRARY: 1
